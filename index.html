@@ -117,7 +117,7 @@ hr{border:0;border-top:1px solid #173149;margin:12px 0}
   <div class="head">
     <div>
       <div class="brand">NOVA MEME HUNTER <b>V1.0.0</b></div>
-      <div class="sub">UNIVERSAL MULTI-MARKET • ALL CRYPTO / MEME • PAPER / SHADOW</div>
+      <div class="sub">MEME / ALT / LAUNCH HUNTER • V7.0 PROFIT CORE • PAPER / SHADOW</div>
     </div>
     <span id="liveLock" class="badge ok">LIVE LOCKED</span>
   </div>
@@ -166,7 +166,7 @@ hr{border:0;border-top:1px solid #173149;margin:12px 0}
     </div>
     <div id="universeChains" class="small" style="margin-top:9px">Waiting for universe…</div>
     <div id="universeTopMarkets" style="margin-top:5px"></div>
-    <div class="notice">NOVA V7 discovers every market exposed by connected providers. Execution remains PAPER/SHADOW and security/liquidity/risk gates can block unsafe assets.</div>
+    <div class="notice">NOVA Meme Hunter scans altcoins, meme coins and launch markets exposed by connected providers. Major perpetual trading is disabled. Execution remains PAPER/SHADOW and security, liquidity and risk gates can block unsafe assets.</div>
   </div>
 
   <div class="card">
@@ -384,7 +384,7 @@ hr{border:0;border-top:1px solid #173149;margin:12px 0}
 <script>
 const $=id=>document.getElementById(id);
 const money=n=>'$'+Number(n||0).toFixed(2);
-const DEFAULT_SERVER='https://p01--nova-trader-cloud-v2--snkzwswjqkdc.code.run';
+const DEFAULT_SERVER='https://p01--nova-meme-hunter--r2gz5dpd4nwn.code.run';
 
 function normalizeBase(value){
  let v=String(value||'').trim();
@@ -400,9 +400,9 @@ function normalizeKey(value){
  return v
 }
 
-let base=normalizeBase(localStorage.getItem('nova_final_server')||localStorage.getItem('nova_v4_server')||DEFAULT_SERVER);
-let key=normalizeKey(localStorage.getItem('nova_final_admin')||localStorage.getItem('nova_v4_key')||'');
-let profile=localStorage.getItem('nova_final_profile')||localStorage.getItem('nova_simple_profile')||'FAST';
+let base=normalizeBase(localStorage.getItem('nova_meme_hunter_server')||DEFAULT_SERVER);
+let key=normalizeKey(localStorage.getItem('nova_meme_hunter_admin')||'');
+let profile=localStorage.getItem('nova_meme_hunter_profile')||'FAST';
 let engineControls={};
 
 const engineUi={
@@ -534,8 +534,8 @@ async function saveConnect(){
    return
  }
 
- localStorage.setItem('nova_final_server',base);
- localStorage.setItem('nova_final_admin',key);
+ localStorage.setItem('nova_meme_hunter_server',base);
+ localStorage.setItem('nova_meme_hunter_admin',key);
  $('connState').textContent='CHECKING';$('connState').className='c';
  $('botState').textContent='CONNECTING';$('cloudHealth').textContent='Health → Auth → Dashboard';
 
@@ -557,7 +557,7 @@ function markProfile(){
  $(profile.toLowerCase()+'Btn').classList.add('sel');$('profileText').textContent=profiles[profile].text
 }
 async function setProfile(p){
- profile=p;localStorage.setItem('nova_final_profile',p);markProfile();
+ profile=p;localStorage.setItem('nova_meme_hunter_profile',p);markProfile();
  if(key)await saveSettings(true)
 }
 markProfile();
