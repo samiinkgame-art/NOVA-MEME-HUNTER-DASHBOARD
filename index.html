@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#050b13">
-<title>NOVA MEME HUNTER V1.0.0</title>
+<title>NOVA MEME HUNTER V1.1.0 — APEX EDGE</title>
 <style>
 :root{
   --bg:#050b13;--panel:#0a1625;--panel2:#0d1d30;--line:#1a3854;
@@ -116,8 +116,8 @@ hr{border:0;border-top:1px solid #173149;margin:12px 0}
 <div class="wrap">
   <div class="head">
     <div>
-      <div class="brand">NOVA MEME HUNTER <b>V1.0.0</b></div>
-      <div class="sub">MEME / ALT / LAUNCH HUNTER • V7.0 PROFIT CORE • PAPER / SHADOW</div>
+      <div class="brand">NOVA MEME HUNTER <b>V1.1.0</b></div>
+      <div class="sub">APEX EDGE • PRE-MOVE HUNTER • V7.0 CORE • PAPER / SHADOW</div>
     </div>
     <span id="liveLock" class="badge ok">LIVE LOCKED</span>
   </div>
@@ -155,7 +155,7 @@ hr{border:0;border-top:1px solid #173149;margin:12px 0}
   </div>
 
   <div class="card">
-    <div class="row"><div><div class="sectionTitle">Meme Hunter Universe</div><div class="small">V7.0 profit core • Alts + Memes + Launch • DEX + selected CEX spot • NO MAJOR PERPS</div></div><span id="universeBadge" class="badge ok">DYNAMIC</span></div>
+    <div class="row"><div><div class="sectionTitle">Meme Hunter Universe</div><div class="small">V7.0 core + APEX Edge • Alts + Memes + Launch • DEX + selected CEX spot • NO MAJOR PERPS</div></div><span id="universeBadge" class="badge ok">DYNAMIC</span></div>
     <div class="universeTop">
       <div class="mini"><div class="k">TRACKED NOW</div><b id="uniTracked">0</b></div>
       <div class="mini"><div class="k">CEX PERPS</div><b id="uniPerps">0</b></div>
@@ -276,14 +276,14 @@ hr{border:0;border-top:1px solid #173149;margin:12px 0}
     <div class="small">پروفایل فقط Thresholdها را تغییر می‌دهد؛ Guardهای امنیتی و سرمایه دور زده نمی‌شوند.</div>
     <div class="profile">
       <button id="safeBtn" onclick="setProfile('SAFE')">SAFE</button>
-      <button id="balancedBtn" onclick="setProfile('BALANCED')">BALANCED</button>
+      <button id="balancedBtn" onclick="setProfile('BALANCED')">APEX</button>
       <button id="fastBtn" onclick="setProfile('FAST')">FAST</button>
     </div>
     <div id="profileText" class="notice"></div>
     <div class="controls">
-      <label>Risk / Trade %<input id="risk" type="number" min=".05" max="2" step=".05" value=".75"></label>
+      <label>Risk / Trade %<input id="risk" type="number" min=".05" max="2" step=".05" value=".35"></label>
       <label>Stop Loss %<input id="sl" type="number" min=".5" max="15" step=".5" value="4"></label>
-      <label>Max Positions<input id="maxPos" type="number" min="1" max="10" value="4"></label>
+      <label>Max Positions<input id="maxPos" type="number" min="1" max="4" value="2"></label>
       <label>Perp Leverage
         <select id="lev"><option>1</option><option>1.25</option><option>1.5</option><option>2</option></select>
       </label>
@@ -309,13 +309,13 @@ hr{border:0;border-top:1px solid #173149;margin:12px 0}
       <button id="engPerpShort" class="engineToggle" onclick="toggleEngine('perp_short')"><span><span class="ename">PERP SHORT</span><span class="edesc">Perpetual Short</span></span><span class="estate">—</span></button>
       <button id="engRealtime" class="engineToggle" onclick="toggleEngine('realtime_pulse')"><span><span class="ename">REALTIME PULSE</span><span class="edesc">Realtime Sniper logic</span></span><span class="estate">—</span></button>
       <button id="engPaid" class="engineToggle" onclick="toggleEngine('paid_stream')"><span><span class="ename">PAID STREAM</span><span class="edesc">PumpPortal BUY/SELL metered feed</span></span><span class="estate">—</span></button>
-      <button id="engRouter" class="engineToggle" onclick="toggleEngine('selective_router')" style="grid-column:1/-1"><span><span class="ename">SELECTIVE ROUTER</span><span class="edesc">Controlled near-threshold PAPER entries</span></span><span class="estate">—</span></button>
+      <button id="engRouter" class="engineToggle" onclick="toggleEngine('selective_router')" style="grid-column:1/-1"><span><span class="ename">SELECTIVE ROUTER</span><span class="edesc">APEX strict router (soft entries blocked)</span></span><span class="estate">—</span></button>
     </div>
     <div id="engineControlText" class="small" style="margin-top:9px">Safety systems مثل Capital Shield، Survival Guard و Exit Engine عمداً از این کنترل‌ها جدا هستند.</div>
   </div>
 
   <div class="card">
-    <div class="row"><div><div class="sectionTitle">Selective Entry Router</div><div class="small">Strict entries + controlled PAPER exploration</div></div><span id="routerBadge" class="badge ok">AUTO</span></div>
+    <div class="row"><div><div class="sectionTitle">Selective Entry Router</div><div class="small">APEX strict entries • soft-entry bypass disabled</div></div><span id="routerBadge" class="badge ok">AUTO</span></div>
     <div class="grid2" style="margin-top:10px">
       <div class="mini"><div class="k">READY</div><b id="routerReady">0</b></div>
       <div class="mini"><div class="k">CONTROLLED</div><b id="routerSoft">0</b></div>
@@ -337,6 +337,19 @@ hr{border:0;border-top:1px solid #173149;margin:12px 0}
       <div id="launchBest" style="font-weight:900">Waiting for new token…</div>
       <div id="launchMeta" class="small" style="margin-top:5px"></div>
     </div>
+  </div>
+
+  <div class="card">
+    <div class="row"><div><div class="sectionTitle">APEX Edge Intelligence</div><div class="small">Pre-Move ensemble • anti-chase • flow + liquidity + recent edge</div></div><span id="apexBadge" class="badge ok">STRICT</span></div>
+    <div class="grid2" style="margin-top:10px">
+      <div class="mini"><div class="k">TRACKED</div><b id="apexTracked">0</b></div>
+      <div class="mini"><div class="k">QUALIFIED NOW</div><b id="apexQualified">0</b></div>
+      <div class="mini"><div class="k">MIN SCORE</div><b id="apexMin">—</b></div>
+      <div class="mini"><div class="k">TOP APEX</div><b id="apexTop">—</b></div>
+      <div class="mini"><div class="k">PRE-MOVE</div><b id="apexPre">—</b></div>
+      <div class="mini"><div class="k">CHASE RISK</div><b id="apexChase">—</b></div>
+    </div>
+    <div id="apexText" class="notice">APEX منتظر داده است. تعداد معامله کمتر، کیفیت ورود بالاتر.</div>
   </div>
 
   <div class="card">
@@ -369,7 +382,7 @@ hr{border:0;border-top:1px solid #173149;margin:12px 0}
   <div class="card">
     <div class="row"><div><div class="sectionTitle">Recent Results</div><div class="small">آخرین معاملات بسته‌شده</div></div><span id="recentCount" class="badge">0</span></div>
     <div id="trades"><div class="small" style="margin-top:9px">No trades yet.</div></div>
-    <button class="full dark" onclick="resetPaper()">RESET PAPER TEST</button>
+    <div class="notice">PAPER history preserved for expectancy / profit-factor learning. Reset is intentionally hidden in APEX mode.</div>
   </div>
 </div>
 
@@ -402,7 +415,7 @@ function normalizeKey(value){
 
 let base=normalizeBase(localStorage.getItem('nova_meme_hunter_server')||DEFAULT_SERVER);
 let key=normalizeKey(localStorage.getItem('nova_meme_hunter_admin')||'');
-let profile=localStorage.getItem('nova_meme_hunter_profile')||'FAST';
+let profile=localStorage.getItem('nova_meme_hunter_profile')||'BALANCED';
 let engineControls={};
 
 const engineUi={
@@ -453,9 +466,9 @@ async function toggleEngine(name){
 $('server').value=base;$('key').value=key;
 
 const profiles={
- SAFE:{sniper:84,pump:78,scalp:80,long:78,short:78,text:'SAFE: ورود کمتر، Threshold سخت‌تر، مناسب تست محافظه‌کارانه.'},
- BALANCED:{sniper:78,pump:72,scalp:74,long:72,short:72,text:'BALANCED: تعادل بین تعداد فرصت و کیفیت سیگنال.'},
- FAST:{sniper:72,pump:68,scalp:70,long:68,short:68,text:'FAST: حساس‌تر و سریع‌تر؛ Guardهای سرمایه و امنیت همچنان فعال می‌مانند.'}
+ SAFE:{sniper:86,pump:82,scalp:84,long:80,short:80,text:'SAFE: فقط سیگنال‌های بسیار قوی؛ تعداد ورود کم.'},
+ BALANCED:{sniper:82,pump:78,scalp:78,long:78,short:78,text:'APEX: پروفایل اصلی V1.1؛ Pre-Move + Anti-Chase + Edge Guard.'},
+ FAST:{sniper:80,pump:76,scalp:76,long:76,short:76,text:'FAST: سریع‌تر، اما APEX Gate و محافظ سرمایه همچنان قابل دور زدن نیست.'}
 };
 
 function esc(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
@@ -605,17 +618,18 @@ function scoreOf(c,s){
  return Number(s==='SNIPER_LONG'?c.sniper_score:s==='PUMP_LONG'?c.pump_score:s==='SCALP_LONG'?c.scalp_score:s==='PERP_SHORT'?c.short_score:c.long_score||0)
 }
 function renderSignals(cands){
- const rows=(cands||[]).slice().sort((a,b)=>Number(b.quality_score||0)-Number(a.quality_score||0)).slice(0,6);
+ const rows=(cands||[]).slice().sort((a,b)=>Number(b.apex_score||b.quality_score||0)-Number(a.apex_score||a.quality_score||0)).slice(0,6);
  $('signals').innerHTML=rows.length?rows.map(c=>{
-   const st=strategyOf(c),sc=scoreOf(c,st),er=c.entry_router||{},state=er.state||'CHECKING';
+   const st=strategyOf(c),sc=scoreOf(c,st),er=c.entry_router||{},state=er.state||'CHECKING',ax=c.apex||{};
    const cls=state==='READY'?'g':state==='SOFT_PASS'?'y':'r';
    return `<div class="signal">
-    <div class="row"><div><b>${esc(c.symbol)}</b><span class="pill">${esc(st)}</span></div><span class="score ${st.includes('SHORT')?'r':'g'}">${sc.toFixed(0)}</span></div>
+    <div class="row"><div><b>${esc(c.symbol)}</b><span class="pill">${esc(st)}</span></div><span class="score ${state==='READY'?'g':'y'}">A${Number(c.apex_score||ax.score||0).toFixed(0)}</span></div>
+    <div class="small">Signal ${sc.toFixed(0)} • Pre-Move ${Number(ax.pre_move_score||0).toFixed(0)} • Flow ${Number(ax.flow_score||0).toFixed(0)} • Chase ${Number(ax.chase_risk||0).toFixed(0)}</div>
     <div class="small">Quality ${Number(c.quality_score||0).toFixed(0)} • Market ${Number(c.market_risk||0).toFixed(0)} • Liquidity ${money(c.liquidity||0)}</div>
-    <div class="state ${cls}" style="margin-top:5px">${esc(state)} • ${esc(er.reason||'final gates checking')}</div>
-    <div class="bar"><div class="fill" style="width:${Math.min(100,sc)}%"></div></div>
+    <div class="state ${cls}" style="margin-top:5px">${esc(state)} • ${esc(er.reason||'APEX final gates checking')}</div>
+    <div class="bar"><div class="fill" style="width:${Math.min(100,Number(c.apex_score||ax.score||0))}%"></div></div>
    </div>`
- }).join(''):'<div class="small" style="margin-top:9px">No strong signal right now.</div>'
+ }).join(''):'<div class="small" style="margin-top:9px">No APEX-qualified signal right now. Waiting is a valid decision.</div>'
 }
 function renderPositions(rows){
  rows=rows||[];$('openCount').textContent=rows.length;
@@ -736,6 +750,16 @@ async function load(){
    renderMode(d.mode);
    renderEngineControls(d.engine_controls||{});
    renderUniverse(d.universe||{});
+
+   const ax=d.apex_edge||{},at=(ax.top||[])[0]||{};
+   $('apexBadge').textContent=ax.enabled?(ax.strict?'STRICT':'ACTIVE'):'OFF';
+   $('apexBadge').className='badge '+(ax.enabled?'ok':'warn');
+   $('apexTracked').textContent=ax.tracked??0;$('apexQualified').textContent=ax.qualified??0;
+   $('apexMin').textContent=Number(ax.min_score||0).toFixed(0);
+   $('apexTop').textContent=at.symbol?`${at.symbol} • A${Number(at.score||0).toFixed(0)}`:'—';
+   $('apexPre').textContent=at.symbol?Number(at.pre_move_score||0).toFixed(0):'—';
+   $('apexChase').textContent=at.symbol?Number(at.chase_risk||0).toFixed(0):'—';
+   $('apexText').textContent=at.symbol?`${at.strategy||'—'} • ${at.pass?'QUALIFIED':'WAIT'} • ${at.reason||'checking'}`:'APEX منتظر setup معتبر است؛ معامله اجباری انجام نمی‌شود.';
 
    const m=d.metrics||{};
    $('equity').textContent=money(m.equity);$('pnl').textContent=(Number(m.pnl||0)>=0?'+':'')+money(m.pnl);
