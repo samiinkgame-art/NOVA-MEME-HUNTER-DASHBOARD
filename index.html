@@ -1,0 +1,820 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#050b13">
+<title>NOVA MEME HUNTER V1.0.0</title>
+<style>
+:root{
+  --bg:#050b13;--panel:#0a1625;--panel2:#0d1d30;--line:#1a3854;
+  --text:#f5f9fd;--muted:#8fa7bd;--cyan:#42d3ff;--green:#3ddd8c;
+  --red:#ff6379;--yellow:#f1c85b;--blue:#6ea8ff;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{background:var(--bg)}
+body{
+  margin:0;color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,sans-serif;
+  background:
+    radial-gradient(circle at 10% -10%,rgba(66,211,255,.15),transparent 30%),
+    radial-gradient(circle at 100% 5%,rgba(91,104,255,.12),transparent 28%),
+    linear-gradient(180deg,#0c213b 0,#07111f 34%,#04090f 100%);
+  min-height:100vh;padding-bottom:104px
+}
+.wrap{max-width:780px;margin:auto;padding:14px}
+.head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:10px 2px 5px}
+.brand{font-size:24px;font-weight:950;letter-spacing:-.4px}
+.brand b{color:var(--cyan)} .sub{font-size:11px;color:var(--muted);margin-top:3px;line-height:1.5}
+.card{
+  background:linear-gradient(180deg,rgba(13,30,49,.97),rgba(7,18,31,.97));
+  border:1px solid var(--line);border-radius:20px;padding:14px;margin-top:11px;
+  box-shadow:0 10px 35px rgba(0,0,0,.18)
+}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.stat{padding:15px}.k{font-size:10px;color:var(--muted);margin-bottom:5px}
+.v{font-size:25px;font-weight:950}
+.small{font-size:11px;color:var(--muted);line-height:1.55}
+.g{color:var(--green)}.r{color:var(--red)}.y{color:var(--yellow)}.c{color:var(--cyan)}
+.badge{
+  display:inline-flex;align-items:center;gap:5px;font-size:9px;border:1px solid #2b5677;
+  padding:5px 8px;border-radius:999px;color:#c7ecff;white-space:nowrap
+}
+.badge.ok{border-color:#25714e;color:#72eca9}.badge.warn{border-color:#765f20;color:#f4d36b}
+.badge.bad{border-color:#7b2d3c;color:#ff7c8f}
+.dot{width:10px;height:10px;border-radius:50%;background:#667b8c}
+.dot.on{background:var(--green);box-shadow:0 0 12px var(--green)}
+.status{display:flex;align-items:center;gap:8px}.status b{font-size:17px}
+button,input,select{font:inherit}
+button{
+  border:1px solid #2b5878;background:#12334d;color:#fff;border-radius:13px;
+  padding:11px 12px;font-weight:900
+}
+button:active{transform:scale(.985)}
+button.active{outline:2px solid var(--cyan)}
+button.green{background:#11633e}.redbtn{background:#7b2738}.dark{background:#0d2539}
+button.ghost{background:transparent;color:var(--cyan);padding:4px 0;border:0}
+.full{width:100%;margin-top:9px}
+label{font-size:10px;color:var(--muted)}
+input,select{
+  width:100%;background:#05111d;color:#fff;border:1px solid #274864;border-radius:12px;
+  padding:11px;margin-top:6px;direction:ltr
+}
+.hidden{display:none!important}
+.mini{background:#061421;border:1px solid #173650;border-radius:12px;padding:9px;font-size:10px}
+.notice{
+  margin-top:9px;background:#082236;border:1px solid #1b5473;border-radius:13px;
+  padding:10px;font-size:11px;color:#d4ebf8;line-height:1.55
+}
+.bar{height:7px;background:#06111c;border-radius:99px;overflow:hidden;margin-top:7px}
+.fill{height:100%;background:linear-gradient(90deg,var(--cyan),#74a8ff);width:0}
+.pill{font-size:9px;padding:3px 7px;border:1px solid #2b506d;border-radius:99px;margin-right:5px}
+.signal,.trade,.pos{padding:10px 0;border-bottom:1px solid #153048}.signal:last-child,.trade:last-child,.pos:last-child{border-bottom:0}
+.score{font-weight:950;font-size:20px}
+.sectionTitle{font-weight:900;font-size:15px}
+.connectionGrid,.controls{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:10px}
+.profile{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:9px}
+.profile button{font-size:10px;padding:9px 5px}
+.profile button.sel{background:#175878;border-color:#47d2ff}
+.state{font-size:10px;font-weight:900}
+.engineGrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:10px}
+.engineToggle{
+  min-height:66px;text-align:right;display:flex;align-items:center;justify-content:space-between;
+  gap:8px;background:#071725;border:1px solid #21435f;padding:10px 11px
+}
+.engineToggle .ename{font-size:12px;font-weight:950}
+.engineToggle .edesc{font-size:9px;color:var(--muted);font-weight:600;margin-top:3px}
+.engineToggle .estate{
+  min-width:46px;text-align:center;border-radius:999px;padding:5px 8px;font-size:9px;
+  border:1px solid #5e3340;color:#ff8091;background:rgba(255,99,121,.08)
+}
+.engineToggle.on{border-color:#246c4d;background:rgba(30,111,72,.10)}
+.engineToggle.on .estate{border-color:#2f8d63;color:#7af0ad;background:rgba(61,221,140,.08)}
+.engineToggle.busy{opacity:.65;pointer-events:none}
+.universeTop{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.marketRow{display:grid;grid-template-columns:1.2fr .8fr .7fr .55fr;gap:7px;align-items:center;padding:8px 0;border-bottom:1px solid #153048;font-size:10px}
+.marketRow:last-child{border-bottom:0}
+.marketRow b{font-size:11px}.marketDir{font-weight:950}.marketDir.long{color:var(--green)}.marketDir.short{color:var(--red)}
+@media(max-width:430px){.universeTop{grid-template-columns:1fr 1fr}.marketRow{grid-template-columns:1.2fr .8fr .65fr}}
+.bottom{
+  position:fixed;bottom:0;left:0;right:0;background:rgba(3,9,15,.95);
+  backdrop-filter:blur(16px);border-top:1px solid #17314a;
+  padding:9px 10px calc(9px + env(safe-area-inset-bottom));z-index:30
+}
+.bin{max-width:780px;margin:auto;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+hr{border:0;border-top:1px solid #173149;margin:12px 0}
+.ltr{direction:ltr;text-align:left}
+.pre{
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10px;direction:ltr;text-align:left;
+  white-space:pre-wrap;word-break:break-word;background:#04101a;border:1px solid #18364c;border-radius:10px;padding:9px
+}
+@media(max-width:430px){.v{font-size:22px}.grid3{grid-template-columns:1fr 1fr}.connectionGrid,.controls{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="head">
+    <div>
+      <div class="brand">NOVA MEME HUNTER <b>V1.0.0</b></div>
+      <div class="sub">UNIVERSAL MULTI-MARKET • ALL CRYPTO / MEME • PAPER / SHADOW</div>
+    </div>
+    <span id="liveLock" class="badge ok">LIVE LOCKED</span>
+  </div>
+
+  <div class="card">
+    <div class="row">
+      <div class="status">
+        <span id="dot" class="dot"></span>
+        <div><b id="botState">CONNECTING</b><div id="cloudHealth" class="small">Cloud status</div></div>
+      </div>
+      <div style="text-align:left">
+        <div id="connState" class="c" style="font-weight:900">—</div>
+        <button class="ghost" onclick="toggleConn()">Connection</button>
+      </div>
+    </div>
+    <div id="connBox" class="hidden">
+      <div class="connectionGrid">
+        <label>Northflank URL
+          <input id="server" placeholder="https://...code.run">
+        </label>
+        <label>NOVA Admin Key
+          <input id="key" type="password" autocomplete="off" placeholder="private admin key">
+        </label>
+      </div>
+      <button class="full" onclick="saveConnect()">CONNECT / SAVE</button>
+      <div class="small" style="margin-top:7px">API Key یا Private Key کیف پول را اینجا وارد نکن. این فیلد فقط NOVA Admin Key است.</div>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="card stat"><div class="k">EQUITY</div><div id="equity" class="v">$—</div></div>
+    <div class="card stat"><div class="k">TOTAL P&L</div><div id="pnl" class="v">$—</div></div>
+    <div class="card stat"><div class="k">WIN RATE</div><div id="wr" class="v">—</div></div>
+    <div class="card stat"><div class="k">OPEN POSITIONS</div><div id="positionsN" class="v">0</div></div>
+  </div>
+
+  <div class="card">
+    <div class="row"><div><div class="sectionTitle">Meme Hunter Universe</div><div class="small">V7.0 profit core • Alts + Memes + Launch • DEX + selected CEX spot • NO MAJOR PERPS</div></div><span id="universeBadge" class="badge ok">DYNAMIC</span></div>
+    <div class="universeTop">
+      <div class="mini"><div class="k">TRACKED NOW</div><b id="uniTracked">0</b></div>
+      <div class="mini"><div class="k">CEX PERPS</div><b id="uniPerps">0</b></div>
+      <div class="mini"><div class="k">CEX SPOT</div><b id="uniSpot">0</b></div>
+      <div class="mini"><div class="k">DEX RECENT</div><b id="uniDex">0</b></div>
+      <div class="mini"><div class="k">LONG / SHORT</div><b id="uniDirections">0 / 0</b></div>
+      <div class="mini"><div class="k">PROVIDERS</div><b id="uniProviders">—</b></div>
+    </div>
+    <div id="universeChains" class="small" style="margin-top:9px">Waiting for universe…</div>
+    <div id="universeTopMarkets" style="margin-top:5px"></div>
+    <div class="notice">NOVA V7 discovers every market exposed by connected providers. Execution remains PAPER/SHADOW and security/liquidity/risk gates can block unsafe assets.</div>
+  </div>
+
+  <div class="card">
+    <div class="row"><div><div class="sectionTitle">Realtime Core</div><div class="small">PumpPortal WebSocket + Event-Driven Exit</div></div><span id="rtBadge" class="badge warn">CHECKING</span></div>
+    <div class="grid2" style="margin-top:10px">
+      <div class="mini"><div class="k">FEED MODE</div><b id="rtMode">—</b></div>
+      <div class="mini"><div class="k">HTTP HANDSHAKE</div><b id="rtHttp">—</b></div>
+      <div class="mini"><div class="k">LAST EVENT</div><b id="rtLast">—</b></div>
+      <div class="mini"><div class="k">ATTEMPTS</div><b id="rtAttempts">0</b></div>
+      <div class="mini"><div class="k">SUBSCRIPTIONS</div><b id="rtSubs">0</b></div>
+      <div class="mini"><div class="k">REAL TRADE EVENTS</div><b id="rtEvents">0</b></div>
+      <div class="mini"><div class="k">CREATE</div><b id="rtCreate">0</b></div>
+      <div class="mini"><div class="k">BUY</div><b id="rtBuy">0</b></div>
+      <div class="mini"><div class="k">SELL</div><b id="rtSell">0</b></div>
+      <div class="mini"><div class="k">PROVIDER MSG</div><b id="rtProvider">0</b></div>
+      <div class="mini"><div class="k">SUB ERRORS</div><b id="rtSubErrors">0</b></div>
+      <div class="mini"><div class="k">LAST REAL TRADE</div><b id="rtTradeAge">—</b></div>
+    </div>
+    <div id="rtText" class="notice">Checking realtime connection…</div>
+    <div id="providerErrorBox" class="notice hidden" style="border-color:#7b2d3c;color:#ffd7dd">
+      <b>METERED STREAM ERROR</b><br><span id="providerErrorText">—</span>
+    </div>
+    <div class="grid2" style="margin-top:9px">
+      <div class="mini"><div class="k">REALTIME EXIT</div><b id="rtExit">—</b></div>
+      <div class="mini"><div class="k">RETRY</div><b id="rtRetry">—</b></div>
+    </div>
+    <button class="full dark" onclick="loadDiagnostics()">REFRESH REALTIME DIAGNOSTICS</button>
+    <div id="diagBox" class="pre hidden"></div>
+  </div>
+
+  <div class="card">
+    <div class="row"><div><div class="sectionTitle">Paid Stream Cost Optimizer</div><div class="small">PumpPortal metered BUY/SELL budget control</div></div><span id="costBadge" class="badge ok">ACTIVE</span></div>
+    <div class="grid2" style="margin-top:10px">
+      <div class="mini"><div class="k">PAID SUBS</div><b id="costSubs">0/3</b></div>
+      <div class="mini"><div class="k">EVENTS / HOUR</div><b id="costEvents">0/4000</b></div>
+      <div class="mini"><div class="k">BUDGET USED</div><b id="costPct">0%</b></div>
+      <div class="mini"><div class="k">EST. SESSION COST</div><b id="costSol">0 SOL</b></div>
+      <div class="mini"><div class="k">WALLET BALANCE</div><b id="costWallet">—</b></div>
+      <div class="mini"><div class="k">RESERVE FLOOR</div><b id="costFloor">0.025 SOL</b></div>
+      <div class="mini"><div class="k">TTL</div><b id="costTtl">12s</b></div>
+      <div class="mini"><div class="k">PRUNED</div><b id="costPruned">0</b></div>
+    </div>
+    <div class="bar"><div id="costBar" class="fill"></div></div>
+    <div id="costText" class="notice">Cost optimizer telemetry loading…</div>
+  </div>
+
+  <div class="card">
+    <div class="row">
+      <div><div class="sectionTitle">Micro Profit Cycle</div><div class="small">Small-profit PAPER exits + fast capital recycling</div></div>
+      <span id="profitBadge" class="badge warn">TESTING</span>
+    </div>
+    <div class="grid2" style="margin-top:10px">
+      <div class="mini"><div class="k">DAILY OBJECTIVE</div><b id="profitTarget">$100</b></div>
+      <div class="mini"><div class="k">PAPER REALIZED</div><b id="profitRealized">$0.00</b></div>
+      <div class="mini"><div class="k">STREAM COST EST.</div><b id="profitStream">$0.00</b></div>
+      <div class="mini"><div class="k">NET AFTER STREAM</div><b id="profitNet">$0.00</b></div>
+      <div class="mini"><div class="k">CLOSED TRADES</div><b id="profitTrades">0</b></div>
+      <div class="mini"><div class="k">OBJECTIVE</div><b id="profitProgress">0%</b></div>
+    </div>
+    <div class="bar"><div id="profitBar" class="fill"></div></div>
+    <div class="grid2" style="margin-top:9px">
+      <div class="mini"><div class="k">SCALP TP</div><b id="microScalpTp">1.25%</b></div>
+      <div class="mini"><div class="k">PUMP TP</div><b id="microPumpTp">2.00%</b></div>
+      <div class="mini"><div class="k">SNIPER TP</div><b id="microSniperTp">1.00%</b></div>
+      <div class="mini"><div class="k">LAUNCH TP</div><b id="microLaunchTp">3.00%</b></div>
+    </div>
+    <div id="profitText" class="notice">Micro Profit Cycle در حال جمع‌آوری PAPER trades است.</div>
+  </div>
+
+  <div class="card">
+    <div class="row"><div><div class="sectionTitle">NOVA Decision</div><div class="small">آخرین تصمیم موتور</div></div><span id="decisionAge" class="small">—</span></div>
+    <div id="decisionTitle" class="v c" style="font-size:21px;margin-top:8px">SCANNING…</div>
+    <div id="decisionReason" class="small" style="margin-top:6px;color:#d1e3ef">در حال بررسی Gateهای ورود.</div>
+    <div class="grid2" style="margin-top:9px">
+      <div class="mini"><div class="k">BEST OPPORTUNITY</div><b id="bestOpp">—</b></div>
+      <div class="mini"><div class="k">LAST REFRESH</div><b id="lastUpdate">—</b></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="row"><div><div class="sectionTitle">Daily Guard + Target</div><div class="small">محافظ سرمایه و هدف روزانه</div></div><span id="guardBadge" class="badge ok">ACTIVE</span></div>
+    <div class="grid2" style="margin-top:10px">
+      <div class="mini"><div class="k">TODAY P&L</div><b id="todayPnl">—</b></div>
+      <div class="mini"><div class="k">LOSS LIMIT</div><b id="dailyLimit">—</b></div>
+      <div class="mini"><div class="k">TARGET</div><b id="targetPct">—</b></div>
+      <div class="mini"><div class="k">OPEN RISK</div><b id="openRisk">—</b></div>
+    </div>
+    <div class="bar"><div id="targetBar" class="fill"></div></div>
+    <div id="targetText" class="small" style="margin-top:8px"></div>
+  </div>
+
+  <div id="positionsCard" class="card hidden">
+    <div class="row"><div class="sectionTitle">Open Positions</div><span id="openCount" class="badge">0</span></div>
+    <div id="positions"></div>
+  </div>
+
+  <div class="card">
+    <div class="row"><div><div class="sectionTitle">Trading Mode</div><div class="small">LIVE execution در Backend قفل است.</div></div><span id="modeBadge" class="badge">PAPER</span></div>
+    <div class="grid2" style="margin-top:9px">
+      <button id="paperBtn" onclick="setMode('PAPER')">PAPER</button>
+      <button id="shadowBtn" onclick="setMode('SHADOW')">SHADOW</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="sectionTitle">Trading Sensitivity</div>
+    <div class="small">پروفایل فقط Thresholdها را تغییر می‌دهد؛ Guardهای امنیتی و سرمایه دور زده نمی‌شوند.</div>
+    <div class="profile">
+      <button id="safeBtn" onclick="setProfile('SAFE')">SAFE</button>
+      <button id="balancedBtn" onclick="setProfile('BALANCED')">BALANCED</button>
+      <button id="fastBtn" onclick="setProfile('FAST')">FAST</button>
+    </div>
+    <div id="profileText" class="notice"></div>
+    <div class="controls">
+      <label>Risk / Trade %<input id="risk" type="number" min=".05" max="2" step=".05" value=".75"></label>
+      <label>Stop Loss %<input id="sl" type="number" min=".5" max="15" step=".5" value="4"></label>
+      <label>Max Positions<input id="maxPos" type="number" min="1" max="10" value="4"></label>
+      <label>Perp Leverage
+        <select id="lev"><option>1</option><option>1.25</option><option>1.5</option><option>2</option></select>
+      </label>
+    </div>
+    <button class="full" onclick="saveSettings()">SAVE SETTINGS</button>
+    <div id="saved" class="small g" style="text-align:center;margin-top:6px;min-height:16px"></div>
+  </div>
+
+  <div class="card">
+    <div class="row">
+      <div><div class="sectionTitle">Engine Control Center</div><div class="small">هر موتور را جداگانه روشن یا خاموش کن.</div></div>
+      <span class="badge ok">MANUAL</span>
+    </div>
+    <div class="notice">
+      OFF فقط ورود جدید آن موتور را متوقف می‌کند. پوزیشن‌های باز همچنان توسط Stop / Profit Lock / Event-Driven Exit مدیریت می‌شوند.
+    </div>
+    <div class="engineGrid">
+      <button id="engScalp" class="engineToggle" onclick="toggleEngine('scalp')"><span><span class="ename">SCALP</span><span class="edesc">معاملات کوتاه Spot</span></span><span class="estate">—</span></button>
+      <button id="engPump" class="engineToggle" onclick="toggleEngine('pump')"><span><span class="ename">PUMP</span><span class="edesc">Momentum / Pump Spot</span></span><span class="estate">—</span></button>
+      <button id="engSniper" class="engineToggle" onclick="toggleEngine('sniper')"><span><span class="ename">SNIPER</span><span class="edesc">Sniper candidate engine</span></span><span class="estate">—</span></button>
+      <button id="engLaunch" class="engineToggle" onclick="toggleEngine('launch')"><span><span class="ename">LAUNCH</span><span class="edesc">First-Seconds launch engine</span></span><span class="estate">—</span></button>
+      <button id="engPerpLong" class="engineToggle" onclick="toggleEngine('perp_long')"><span><span class="ename">PERP LONG</span><span class="edesc">Perpetual Long</span></span><span class="estate">—</span></button>
+      <button id="engPerpShort" class="engineToggle" onclick="toggleEngine('perp_short')"><span><span class="ename">PERP SHORT</span><span class="edesc">Perpetual Short</span></span><span class="estate">—</span></button>
+      <button id="engRealtime" class="engineToggle" onclick="toggleEngine('realtime_pulse')"><span><span class="ename">REALTIME PULSE</span><span class="edesc">Realtime Sniper logic</span></span><span class="estate">—</span></button>
+      <button id="engPaid" class="engineToggle" onclick="toggleEngine('paid_stream')"><span><span class="ename">PAID STREAM</span><span class="edesc">PumpPortal BUY/SELL metered feed</span></span><span class="estate">—</span></button>
+      <button id="engRouter" class="engineToggle" onclick="toggleEngine('selective_router')" style="grid-column:1/-1"><span><span class="ename">SELECTIVE ROUTER</span><span class="edesc">Controlled near-threshold PAPER entries</span></span><span class="estate">—</span></button>
+    </div>
+    <div id="engineControlText" class="small" style="margin-top:9px">Safety systems مثل Capital Shield، Survival Guard و Exit Engine عمداً از این کنترل‌ها جدا هستند.</div>
+  </div>
+
+  <div class="card">
+    <div class="row"><div><div class="sectionTitle">Selective Entry Router</div><div class="small">Strict entries + controlled PAPER exploration</div></div><span id="routerBadge" class="badge ok">AUTO</span></div>
+    <div class="grid2" style="margin-top:10px">
+      <div class="mini"><div class="k">READY</div><b id="routerReady">0</b></div>
+      <div class="mini"><div class="k">CONTROLLED</div><b id="routerSoft">0</b></div>
+      <div class="mini"><div class="k">BLOCKED</div><b id="routerBlocked">0</b></div>
+      <div class="mini"><div class="k">SOFT / HOUR</div><b id="routerHour">0/0</b></div>
+    </div>
+    <div id="routerText" class="small" style="margin-top:8px"></div>
+  </div>
+
+  <div class="card">
+    <div class="row"><div><div class="sectionTitle">Launch Sniper</div><div class="small">First-Seconds PAPER engine</div></div><span id="launchBadge" class="badge warn">WATCHING</span></div>
+    <div class="grid2" style="margin-top:10px">
+      <div class="mini"><div class="k">NEW TOKENS</div><b id="launchNew">0</b></div>
+      <div class="mini"><div class="k">WATCHING</div><b id="launchWatching">0</b></div>
+      <div class="mini"><div class="k">TRADE EVENTS</div><b id="launchTrades">0</b></div>
+      <div class="mini"><div class="k">ENTRIES</div><b id="launchEntries">0</b></div>
+    </div>
+    <div class="notice">
+      <div id="launchBest" style="font-weight:900">Waiting for new token…</div>
+      <div id="launchMeta" class="small" style="margin-top:5px"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="row"><div><div class="sectionTitle">Best Signals</div><div class="small">بهترین فرصت‌های فعلی</div></div><button class="dark" onclick="load()">REFRESH</button></div>
+    <div id="signals"><div class="small" style="margin-top:9px">Waiting for data…</div></div>
+  </div>
+
+  <div class="card">
+    <div class="row"><div><div class="sectionTitle">Edge Governor</div><div class="small">Scale فقط بعد از Edge مثبت</div></div><span id="edgeBadge" class="badge warn">LEARNING</span></div>
+    <div class="grid3" style="margin-top:10px">
+      <div class="mini"><div class="k">LAUNCH</div><b id="govLaunch">—</b></div>
+      <div class="mini"><div class="k">SNIPER</div><b id="govSniper">—</b></div>
+      <div class="mini"><div class="k">SCALP</div><b id="govScalp">—</b></div>
+      <div class="mini"><div class="k">PUMP</div><b id="govPump">—</b></div>
+      <div class="mini"><div class="k">PERP L/S</div><b id="govPerp">—</b></div>
+      <div class="mini"><div class="k">RECOVERY</div><b id="recoveryState">—</b></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="row"><div><div class="sectionTitle">Cloud Free-Lite</div><div class="small">Northflank resource protection</div></div><span class="badge ok">ACTIVE</span></div>
+    <div class="grid2" style="margin-top:10px">
+      <div class="mini"><div class="k">SUBSCRIPTIONS</div><b id="liteSubs">0</b></div>
+      <div class="mini"><div class="k">PULSE BUFFERS</div><b id="liteBuffers">0</b></div>
+      <div class="mini"><div class="k">LAUNCH OBJECTS</div><b id="liteLaunch">0</b></div>
+      <div class="mini"><div class="k">CLEANUP RUNS</div><b id="liteCleanup">0</b></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="row"><div><div class="sectionTitle">Recent Results</div><div class="small">آخرین معاملات بسته‌شده</div></div><span id="recentCount" class="badge">0</span></div>
+    <div id="trades"><div class="small" style="margin-top:9px">No trades yet.</div></div>
+    <button class="full dark" onclick="resetPaper()">RESET PAPER TEST</button>
+  </div>
+</div>
+
+<div class="bottom">
+  <div class="bin">
+    <button class="green" onclick="control('start')">START ▶</button>
+    <button class="dark" onclick="control('stop')">STOP ■</button>
+    <button class="redbtn" onclick="control('kill')">KILL ⛔</button>
+  </div>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+const money=n=>'$'+Number(n||0).toFixed(2);
+const DEFAULT_SERVER='https://p01--nova-trader-cloud-v2--snkzwswjqkdc.code.run';
+
+function normalizeBase(value){
+ let v=String(value||'').trim();
+ if((v.startsWith('"')&&v.endsWith('"'))||(v.startsWith("'")&&v.endsWith("'")))v=v.slice(1,-1).trim();
+ v=v.replace(/\/+$/,'');
+ // Users sometimes paste a test endpoint instead of the API base URL.
+ v=v.replace(/\/(health|api\/dashboard|api\/auth-check)$/i,'');
+ return v.replace(/\/+$/,'')
+}
+function normalizeKey(value){
+ let v=String(value||'').trim();
+ if((v.startsWith('"')&&v.endsWith('"'))||(v.startsWith("'")&&v.endsWith("'")))v=v.slice(1,-1).trim();
+ return v
+}
+
+let base=normalizeBase(localStorage.getItem('nova_final_server')||localStorage.getItem('nova_v4_server')||DEFAULT_SERVER);
+let key=normalizeKey(localStorage.getItem('nova_final_admin')||localStorage.getItem('nova_v4_key')||'');
+let profile=localStorage.getItem('nova_final_profile')||localStorage.getItem('nova_simple_profile')||'FAST';
+let engineControls={};
+
+const engineUi={
+ scalp:'engScalp',pump:'engPump',sniper:'engSniper',launch:'engLaunch',
+ perp_long:'engPerpLong',perp_short:'engPerpShort',realtime_pulse:'engRealtime',
+ paid_stream:'engPaid',selective_router:'engRouter'
+};
+
+function renderEngineControls(e={}){
+ engineControls={...e};
+ Object.entries(engineUi).forEach(([name,id])=>{
+   const el=$(id);if(!el)return;
+   const on=!!engineControls[name];
+   el.classList.toggle('on',on);
+   const state=el.querySelector('.estate');
+   if(state)state.textContent=on?'ON':'OFF';
+ });
+ const paid=!!engineControls.paid_stream,rt=!!engineControls.realtime_pulse;
+ $('engineControlText').textContent=!paid
+   ? 'Paid Stream خاموش است: subscribeTokenTrade متوقف می‌شود؛ NewToken/Migration رایگان و مدیریت ایمن پوزیشن‌های موجود باقی می‌ماند.'
+   : !rt
+   ? 'Paid Stream روشن است ولی Realtime Pulse خاموش است؛ Feed می‌تواند برای Launch و Event-Driven Exit استفاده شود.'
+   : 'Manual controls فعال‌اند. OFF فقط ورود جدید را می‌بندد؛ خروج‌های حفاظتی پوزیشن‌های باز همچنان فعال‌اند.';
+}
+
+async function toggleEngine(name){
+ if(!key){
+   alert('برای تغییر موتور، NOVA Admin Key را در Connection وارد کن.');
+   $('connBox').classList.remove('hidden');
+   return;
+ }
+ const id=engineUi[name],el=$(id);
+ if(!el)return;
+ const current=!!engineControls[name];
+ if(name==='paid_stream' && current){
+   const ok=confirm('PAID STREAM را خاموش کنیم؟ هزینه BUY/SELL metered متوقف می‌شود، اما Realtime trade events محدود می‌شوند. پوزیشن‌های باز با محافظ‌های fallback مدیریت می‌شوند.');
+   if(!ok)return;
+ }
+ el.classList.add('busy');
+ try{
+   const r=await req(`/api/engines/${name}/${current?'off':'on'}`,{method:'POST'});
+   renderEngineControls(r.controls||{});
+   await load();
+ }catch(e){alert(e.message)}
+ finally{el.classList.remove('busy')}
+}
+
+$('server').value=base;$('key').value=key;
+
+const profiles={
+ SAFE:{sniper:84,pump:78,scalp:80,long:78,short:78,text:'SAFE: ورود کمتر، Threshold سخت‌تر، مناسب تست محافظه‌کارانه.'},
+ BALANCED:{sniper:78,pump:72,scalp:74,long:72,short:72,text:'BALANCED: تعادل بین تعداد فرصت و کیفیت سیگنال.'},
+ FAST:{sniper:72,pump:68,scalp:70,long:68,short:68,text:'FAST: حساس‌تر و سریع‌تر؛ Guardهای سرمایه و امنیت همچنان فعال می‌مانند.'}
+};
+
+function esc(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function ageText(iso){
+ if(!iso)return '—';const s=Math.max(0,(Date.now()-new Date(iso).getTime())/1000);
+ return s<60?Math.round(s)+'s ago':s<3600?Math.round(s/60)+'m ago':Math.round(s/3600)+'h ago'
+}
+function toggleConn(){$('connBox').classList.toggle('hidden')}
+
+function connectionErrorText(err){
+ const msg=String(err?.message||err||'Unknown connection error');
+ if(/Invalid NOVA admin key/i.test(msg)||/\b401\b/.test(msg))
+   return '401 • NOVA Admin Key با Northflank یکی نیست';
+ if(/not configured/i.test(msg)||/\b503\b/.test(msg))
+   return '503 • NOVA_ADMIN_KEY روی Northflank تنظیم نشده';
+ if(/AbortError|TIMEOUT/i.test(msg))
+   return 'TIMEOUT • Backend پاسخ نداد';
+ if(/Load failed|Failed to fetch|NetworkError|CORS|NETWORK/i.test(msg))
+   return 'CORS / NETWORK • مرورگر نتوانست به API درخواست cross-origin بفرستد';
+ return msg.slice(0,130)
+}
+
+async function fetchJson(url,opt={},timeoutMs=15000){
+ const controller=new AbortController();
+ const timer=setTimeout(()=>controller.abort(),timeoutMs);
+ try{
+   const r=await fetch(url,{...opt,signal:controller.signal,mode:'cors',cache:'no-store',redirect:'follow'});
+   const text=await r.text();
+   let data={};
+   if(text){
+     try{data=JSON.parse(text)}catch{data={raw:text}}
+   }
+   if(!r.ok){
+     const detail=data?.detail||data?.raw||r.statusText||'Request failed';
+     throw Error(`${r.status} ${detail}`)
+   }
+   return data
+ }catch(e){
+   if(e?.name==='AbortError')throw Error(`TIMEOUT after ${Math.round(timeoutMs/1000)}s`);
+   if(e instanceof TypeError)throw Error(`CORS/NETWORK: ${e.message||'Load failed'}`);
+   throw e
+ }finally{
+   clearTimeout(timer)
+ }
+}
+
+async function publicReq(path){
+ if(!base)throw Error('Server URL missing');
+ return fetchJson(base+path,{method:'GET',headers:{'Accept':'application/json'}})
+}
+
+async function req(path,opt={}){
+ if(!base)throw Error('Server URL missing');
+ const method=String(opt.method||'GET').toUpperCase();
+ const headers={...(opt.headers||{}),'Accept':'application/json'};
+ if(opt.body!=null && !headers['Content-Type'])headers['Content-Type']='application/json';
+ if(key)headers['X-NOVA-Key']=normalizeKey(key);
+ return fetchJson(base+path,{...opt,method,headers})
+}
+
+async function saveConnect(){
+ base=normalizeBase($('server').value);
+ key=normalizeKey($('key').value);
+ $('server').value=base;$('key').value=key;
+
+ if(!/^https:\/\/.+/i.test(base)){
+   $('cloudHealth').textContent='Northflank URL باید با https:// شروع شود';
+   $('connState').textContent='ERROR';$('connState').className='r';
+   $('connBox').classList.remove('hidden');
+   return
+ }
+ if(!key){
+   $('cloudHealth').textContent='NOVA Admin Key خالی است';
+   $('connState').textContent='ERROR';$('connState').className='r';
+   $('connBox').classList.remove('hidden');
+   return
+ }
+
+ localStorage.setItem('nova_final_server',base);
+ localStorage.setItem('nova_final_admin',key);
+ $('connState').textContent='CHECKING';$('connState').className='c';
+ $('botState').textContent='CONNECTING';$('cloudHealth').textContent='Health → Auth → Dashboard';
+
+ try{
+   const h=await publicReq('/health');
+   if(!h?.ok)throw Error('Backend health check is not OK');
+   const a=await req('/api/auth-check');
+   if(!a?.authenticated)throw Error('Authentication check failed');
+   await load()
+ }catch(e){
+   $('connState').textContent='ERROR';$('connState').className='r';
+   $('botState').textContent='DISCONNECTED';
+   $('cloudHealth').textContent=connectionErrorText(e);
+   $('connBox').classList.remove('hidden')
+ }
+}
+function markProfile(){
+ ['safe','balanced','fast'].forEach(x=>$(x+'Btn').classList.remove('sel'));
+ $(profile.toLowerCase()+'Btn').classList.add('sel');$('profileText').textContent=profiles[profile].text
+}
+async function setProfile(p){
+ profile=p;localStorage.setItem('nova_final_profile',p);markProfile();
+ if(key)await saveSettings(true)
+}
+markProfile();
+
+async function setMode(mode){try{await req('/api/mode/'+mode,{method:'POST'});await load()}catch(e){alert(e.message)}}
+async function control(a){try{await req('/api/control/'+a,{method:'POST'});await load()}catch(e){alert(e.message)}}
+async function resetPaper(){
+ if(!confirm('RESET PAPER TEST؟ Equity و تاریخچه Paper پاک می‌شود.'))return;
+ try{await req('/api/control/reset-paper',{method:'POST'});await load()}catch(e){alert(e.message)}
+}
+async function saveSettings(silent=false){
+ const p=profiles[profile];
+ try{
+   await req('/api/settings',{method:'POST',body:JSON.stringify({
+     risk_pct:+$('risk').value,stop_loss_pct:+$('sl').value,max_positions:+$('maxPos').value,
+     perp_leverage:+$('lev').value,min_sniper_score:p.sniper,min_pump_score:p.pump,
+     min_scalp_score:p.scalp,min_long_score:p.long,min_short_score:p.short
+   })});
+   $('saved').textContent=profile+' saved ✓';setTimeout(()=>$('saved').textContent='',1600);
+   await load()
+ }catch(e){$('saved').textContent='Save failed';if(!silent)alert(e.message)}
+}
+function renderMode(mode){
+ mode=(mode||'PAPER').toUpperCase();$('modeBadge').textContent=mode;
+ $('paperBtn').classList.toggle('active',mode==='PAPER');$('shadowBtn').classList.toggle('active',mode==='SHADOW')
+}
+function reasonFa(r){
+ const m={
+  'cooldown':'Cooldown فعال است.','low spot liquidity':'نقدینگی کافی نیست.',
+  'low spot market quality':'کیفیت بازار کافی نیست.','token security score too low':'فیلتر امنیتی توکن رد کرد.',
+  'daily loss limit':'Daily Guard ورود جدید را متوقف کرده.','daily profit target locked':'هدف روزانه Secure شده.',
+  'portfolio open risk cap':'ریسک کل پورتفو به سقف رسیده.','signal below threshold':'امتیاز سیگنال هنوز کافی نیست.',
+  'all final gates passed':'تمام Gateهای ورود تأیید شده.','FIRST_SECONDS_ENTRY':'First-Seconds entry تأیید شد.',
+  'pulse late chase':'حرکت زیادی جلو رفته؛ NOVA تعقیب نمی‌کند.','sniper late chase':'حرکت برای Sniper دیر شده.',
+  'edge governor paused strategy':'Edge Governor این موتور را Pause کرده.','survival loss guard':'Survival Guard فعال است.',
+  'engine manually disabled':'این موتور از Engine Control Center خاموش شده است.'
+ };return m[r]||r||'NOVA در حال اسکن بازار است.'
+}
+function strategyOf(c){
+ if(c.best_strategy)return c.best_strategy;
+ if(c.perp_eligible)return c.direction==='SHORT'?'PERP_SHORT':'PERP_LONG';
+ return Number(c.pump_score||0)>=Number(c.scalp_score||0)?'PUMP_LONG':'SCALP_LONG'
+}
+function scoreOf(c,s){
+ return Number(s==='SNIPER_LONG'?c.sniper_score:s==='PUMP_LONG'?c.pump_score:s==='SCALP_LONG'?c.scalp_score:s==='PERP_SHORT'?c.short_score:c.long_score||0)
+}
+function renderSignals(cands){
+ const rows=(cands||[]).slice().sort((a,b)=>Number(b.quality_score||0)-Number(a.quality_score||0)).slice(0,6);
+ $('signals').innerHTML=rows.length?rows.map(c=>{
+   const st=strategyOf(c),sc=scoreOf(c,st),er=c.entry_router||{},state=er.state||'CHECKING';
+   const cls=state==='READY'?'g':state==='SOFT_PASS'?'y':'r';
+   return `<div class="signal">
+    <div class="row"><div><b>${esc(c.symbol)}</b><span class="pill">${esc(st)}</span></div><span class="score ${st.includes('SHORT')?'r':'g'}">${sc.toFixed(0)}</span></div>
+    <div class="small">Quality ${Number(c.quality_score||0).toFixed(0)} • Market ${Number(c.market_risk||0).toFixed(0)} • Liquidity ${money(c.liquidity||0)}</div>
+    <div class="state ${cls}" style="margin-top:5px">${esc(state)} • ${esc(er.reason||'final gates checking')}</div>
+    <div class="bar"><div class="fill" style="width:${Math.min(100,sc)}%"></div></div>
+   </div>`
+ }).join(''):'<div class="small" style="margin-top:9px">No strong signal right now.</div>'
+}
+function renderPositions(rows){
+ rows=rows||[];$('openCount').textContent=rows.length;
+ if(!rows.length){$('positionsCard').classList.add('hidden');return}
+ $('positionsCard').classList.remove('hidden');
+ $('positions').innerHTML=rows.map(p=>`<div class="pos">
+   <div class="row"><div><b>${esc(p.symbol)}</b><span class="pill">${esc(p.side)}</span></div><b class="${Number(p.return_pct||0)>=0?'g':'r'}">${Number(p.return_pct||0).toFixed(2)}%</b></div>
+   <div class="small">${esc(p.strategy)} • Peak ${Number(p.peak_return_pct||0).toFixed(2)}% • Value ${money(p.market_value||0)}</div>
+ </div>`).join('')
+}
+function renderTrades(rows){
+ rows=(rows||[]).slice(0,6);$('recentCount').textContent=rows.length;
+ $('trades').innerHTML=rows.length?rows.map(t=>`<div class="trade">
+   <div class="row"><div><b>${esc(t.symbol)}</b><span class="pill">${esc(t.side||'')}</span></div><b class="${Number(t.pnl||0)>=0?'g':'r'}">${money(t.pnl||0)} • ${Number(t.pnl_pct||0).toFixed(2)}%</b></div>
+   <div class="small">${esc(t.strategy)} • ${esc(t.reason)}</div>
+ </div>`).join(''):'<div class="small" style="margin-top:9px">No closed trades yet.</div>'
+}
+function renderDecision(d){
+ const positions=d.positions||[],decisions=d.decisions||[],cands=d.candidates||[];
+ const best=cands.slice().sort((a,b)=>Number(b.quality_score||0)-Number(a.quality_score||0))[0];
+ $('bestOpp').textContent=best?`${best.symbol} • ${strategyOf(best)} • Q${Number(best.quality_score||0).toFixed(0)}`:'—';
+ $('lastUpdate').textContent=d.last_refresh?new Date(d.last_refresh).toLocaleTimeString():'—';
+ if(positions.length){
+   const p=positions[0];$('decisionTitle').textContent=`IN POSITION • ${p.symbol} ${p.side}`;$('decisionTitle').className='v g';
+   $('decisionReason').textContent=`مدیریت خروج خودکار فعال است. بازده فعلی ${Number(p.return_pct||0).toFixed(2)}%.`;
+   $('decisionAge').textContent=ageText(p.opened_at);return
+ }
+ if(d.killed){$('decisionTitle').textContent='KILL SWITCH ACTIVE';$('decisionTitle').className='v r';$('decisionReason').textContent='ورود جدید متوقف است.';return}
+ if(!d.bot_enabled){$('decisionTitle').textContent='BOT STOPPED';$('decisionTitle').className='v y';$('decisionReason').textContent='برای شروع START را بزن.';return}
+ const last=decisions[0];
+ if(last){$('decisionAge').textContent=ageText(last.created_at);$('decisionTitle').textContent=last.outcome==='OPENED'?'LAST ENTRY ACCEPTED':'WAITING FOR BETTER ENTRY';$('decisionTitle').className='v '+(last.outcome==='OPENED'?'g':'y');$('decisionReason').textContent=reasonFa(last.reason);return}
+ $('decisionTitle').textContent='SCANNING…';$('decisionTitle').className='v c';$('decisionReason').textContent='NOVA در حال بررسی بازار است.'
+}
+function renderUniverse(u={}){
+ $('uniTracked').textContent=u.tracked??0;
+ $('uniPerps').textContent=u.cex_perp_discovered??0;
+ $('uniSpot').textContent=u.cex_spot_discovered??0;
+ $('uniDex').textContent=u.dex_recent_discovered??0;
+ $('uniDirections').textContent=`${u.long_candidates??0} / ${u.short_candidates??0}`;
+ const p=u.providers||{};const active=Object.entries(p).filter(([,v])=>!!v).map(([k])=>k.replace('binance_','BN-').replace('pumpportal','PUMP').replace('dexscreener','DEX').replace('velocity','VEL'));
+ $('uniProviders').textContent=active.length?active.join(' • '):'—';
+ const chains=u.chains||{};$('universeChains').textContent='Chains / venues: '+(Object.keys(chains).length?Object.entries(chains).map(([k,v])=>`${k} ${v}`).join(' • '):'warming up');
+ const rows=(u.top||[]).slice(0,8);
+ $('universeTopMarkets').innerHTML=rows.length?rows.map(x=>`<div class="marketRow"><b>${x.symbol||'?'}</b><span>${x.asset_class||'—'} • ${x.market_kind||'—'}</span><span>${x.source||'—'}</span><span class="marketDir ${String(x.direction||'').toLowerCase()}">${x.direction||'WAIT'} ${Number(x.score||0).toFixed(0)}</span></div>`).join(''):'<div class="small">Universe warming up…</div>';
+ const errs=Object.keys(u.provider_errors||{}).length;$('universeBadge').textContent=errs?'PARTIAL':'DYNAMIC';$('universeBadge').className='badge '+(errs?'warn':'ok');
+}
+
+function renderRealtime(d,h){
+ const p=d.realtime_pulse||{},rx=d.realtime_exit||{};
+ const connected=!!p.connected||!!h?.pulse_connected;
+ const mode=p.mode||h?.pulse_mode||'OFF';
+ const http=h?.pulse_http_status ?? (connected?101:'—');
+ const mc=p.message_counts||{};
+ const tradeConfirmed=Number(mc.buy||0)+Number(mc.sell||0)>0;
+ $('rtBadge').textContent=connected?(tradeConfirmed?'FULL REALTIME':'NEW-TOKEN LIVE'):mode;
+ $('rtBadge').className='badge '+(connected?(tradeConfirmed?'ok':'warn'):String(mode).includes('REJECTED')||String(mode).includes('AUTH')?'bad':'warn');
+ $('rtMode').textContent=mode;$('rtHttp').textContent=http;
+ $('rtLast').textContent=p.last_event_age_sec==null?'—':Number(p.last_event_age_sec).toFixed(2)+'s ago';
+ $('rtAttempts').textContent=h?.pulse_attempts??'—';$('rtSubs').textContent=p.subscribed_tokens||0;$('rtEvents').textContent=p.events_total||0;
+ $('rtCreate').textContent=mc.create||0;
+ $('rtBuy').textContent=mc.buy||0;
+ $('rtSell').textContent=mc.sell||0;
+ $('rtProvider').textContent=mc.provider||0;
+ $('rtSubErrors').textContent=p.subscription_errors||0;
+ $('rtTradeAge').textContent=p.last_trade_event_age_sec==null?'—':Number(p.last_trade_event_age_sec).toFixed(2)+'s ago';
+ $('rtExit').textContent=rx.enabled?(rx.mode||'ON'):'OFF';
+ const blockedFor=Number(p.subscription_blocked_for_sec||0);
+ $('rtRetry').textContent=blockedFor>0?`Trade ${Math.ceil(blockedFor)}s`:h?.pulse_retry_sec==null?'—':Number(h.pulse_retry_sec)+'s';
+ const pe=p.last_provider_error||'';
+ $('providerErrorBox').classList.toggle('hidden',!pe);
+ $('providerErrorText').textContent=pe||'—';
+ $('rtText').textContent=connected?
+   ((Number((p.message_counts||{}).buy||0)+Number((p.message_counts||{}).sell||0))>0
+    ? `Realtime LIVE • Token Trade stream confirmed • Event-driven Sniper/Exit فعال است.`
+    : `Realtime LIVE • New-token stream active • منتظر اولین BUY/SELL واقعی از subscribeTokenTrade...`):
+   String(mode).startsWith('REJECTED_HTTP_')?
+   `PumpPortal handshake را رد کرده (${mode}). NOVA طبق cooldown دوباره تلاش می‌کند؛ polling fallback فعال می‌ماند.`:
+   mode==='AUTH_REJECTED'?'PumpPortal authentication رد شده؛ API key/wallet association باید بررسی شود.':
+   mode==='RATE_LIMITED'?'PumpPortal rate-limit فعال است؛ NOVA منتظر retry window می‌ماند.':
+   mode==='KEY_READY_TRADE_STREAM_OFF'?'API key شناسایی شده ولی Trade Stream env خاموش است.':
+   'Realtime فعلاً متصل نیست؛ fallback scanner فعال است.'
+}
+async function loadDiagnostics(){
+ try{
+   const x=await req('/api/diagnostics/pumpportal');
+   const safe={
+     version:x.version,connected:x.connected,mode:x.mode,http_status:x.http_status,
+     exception_type:x.exception_type,retry_sec:x.retry_sec,attempts:x.attempts,
+     last_attempt:x.last_attempt,last_connected:x.last_connected,stream_enabled:x.stream_enabled,
+     api_key_present:x.api_key_present,api_key_length:x.api_key_length,
+     env_has_outer_whitespace:x.env_has_outer_whitespace,env_looks_quoted:x.env_looks_quoted,
+     response_headers:x.response_headers,response_body:x.response_body,events_total:x.events_total,
+     message_counts:x.message_counts,subscription_requests:x.subscription_requests,
+     unsubscription_requests:x.unsubscription_requests,trade_subscription_errors:x.trade_subscription_errors,
+     last_provider_message:x.last_provider_message,last_provider_error:x.last_provider_error,
+     provider_error_history:x.provider_error_history,subscription_error_streak:x.subscription_error_streak,
+     subscription_blocked_for_sec:x.subscription_blocked_for_sec,
+     last_trade_event_age_sec:x.last_trade_event_age_sec,launch_trades_seen:x.launch_trades_seen
+   };
+   $('diagBox').textContent=JSON.stringify(safe,null,2);$('diagBox').classList.remove('hidden')
+ }catch(e){
+   $('diagBox').textContent='Diagnostic endpoint unavailable: '+e.message;$('diagBox').classList.remove('hidden')
+ }
+}
+async function load(){
+ try{
+   // First use a simple public GET. If this fails, the API/CORS route itself is unavailable.
+   const h=await publicReq('/health');
+   if(!h?.ok)throw Error('Backend health check is not OK');
+   // Then make the authenticated request. This isolates key/preflight failures from health failures.
+   const d=await req('/api/dashboard');
+   $('connState').textContent='CONNECTED';$('connState').className='g';$('connBox').classList.add('hidden');
+   $('dot').className='dot '+(d.bot_enabled&&!d.killed?'on':'');
+   $('botState').textContent=d.killed?'KILLED':d.bot_enabled?'RUNNING':'STOPPED';
+   $('cloudHealth').textContent=`Backend ${d.version||h.version||'—'} • AUTH OK • ${d.system_health?.status||'UP'}`;
+   $('liveLock').textContent=d.live_execution_locked?'LIVE LOCKED':'CHECK LIVE LOCK';
+   $('liveLock').className='badge '+(d.live_execution_locked?'ok':'bad');
+   renderMode(d.mode);
+   renderEngineControls(d.engine_controls||{});
+   renderUniverse(d.universe||{});
+
+   const m=d.metrics||{};
+   $('equity').textContent=money(m.equity);$('pnl').textContent=(Number(m.pnl||0)>=0?'+':'')+money(m.pnl);
+   $('pnl').className='v '+(Number(m.pnl||0)>=0?'g':'r');$('wr').textContent=Number(m.win_rate||0).toFixed(1)+'%';$('positionsN').textContent=m.open_positions||0;
+
+   const tg=d.daily_target||{},risk=d.risk_status||{};
+   $('todayPnl').textContent=(Number(m.today_pnl||0)>=0?'+':'')+money(m.today_pnl||0);$('todayPnl').className=Number(m.today_pnl||0)>=0?'g':'r';
+   $('dailyLimit').textContent=money(m.loss_limit_usd||0);$('targetPct').textContent=Number(tg.target_pct||0).toFixed(1)+'%';$('openRisk').textContent=Number(risk.open_risk_pct||0).toFixed(2)+'%';
+   const prog=Math.max(0,Math.min(100,Number(tg.progress_pct||0)));$('targetBar').style.width=prog+'%';
+   const blocked=!!m.blocked||!!m.equity_guard?.blocked;$('guardBadge').textContent=blocked?'BLOCKED':tg.locked?'TARGET LOCKED':'ACTIVE';$('guardBadge').className='badge '+(blocked?'bad':'ok');
+   $('targetText').textContent=tg.locked?'هدف روزانه Secure شده و ورود جدید قفل است.':tg.de_risk?'NOVA وارد حالت De-Risk شده تا سود حفظ شود.':'هدف روزانه Objective است؛ معامله ضعیف یا Martingale اجباری انجام نمی‌شود.';
+
+   const s=d.settings||{};if(s.risk_pct!=null)$('risk').value=s.risk_pct;if(s.stop_loss_pct!=null)$('sl').value=s.stop_loss_pct;if(s.max_positions!=null)$('maxPos').value=s.max_positions;if(s.perp_leverage!=null)$('lev').value=String(s.perp_leverage);
+
+   const rt=d.entry_router||{},rs=rt.states||{};$('routerReady').textContent=rs.READY||0;$('routerSoft').textContent=rs.SOFT_PASS||0;$('routerBlocked').textContent=rs.BLOCKED||0;
+   $('routerHour').textContent=`${rt.soft_entries_last_hour||0}/${rt.max_soft_entries_per_hour||0}`;$('routerBadge').textContent=rt.enabled?'AUTO':'OFF';$('routerBadge').className='badge '+(rt.enabled?'ok':'warn');
+   $('routerText').textContent=rt.last_entry?`Last: ${rt.last_entry.symbol} • ${rt.last_entry.strategy} • ${rt.last_entry.mode}`:'READY = strict pass • CONTROLLED = reduced PAPER size • safety gates remain active.';
+
+   const ls=d.launch_sniper||{},lb=ls.best||null;$('launchNew').textContent=ls.new_tokens||0;$('launchWatching').textContent=ls.watching||0;$('launchTrades').textContent=ls.trades_seen||0;$('launchEntries').textContent=ls.entries||0;
+   $('launchBadge').textContent=ls.enabled?'ACTIVE':'OFF';$('launchBadge').className='badge '+(ls.enabled?'ok':'warn');
+   if(lb){$('launchBest').textContent=`${lb.symbol||'TOKEN'} • SCORE ${Number(lb.score||0).toFixed(0)} • ${Number(lb.age_sec||0).toFixed(1)}s`; $('launchMeta').textContent=`2s ${lb.events_2s||0} trades • Buyers ${lb.unique_buyers_2s||0} • Buy ${Number(lb.buy_pressure_2s||0).toFixed(0)}% • Flow ${Number(lb.buy_sol_2s||0).toFixed(2)} SOL • ${lb.status||'WATCHING'}`}
+   else{$('launchBest').textContent='Waiting for new token…';$('launchMeta').textContent='No first-seconds burst yet.'}
+
+   const lite=d.free_lite||{};$('liteSubs').textContent=lite.pulse_subscriptions??0;$('liteBuffers').textContent=lite.pulse_buffers??0;$('liteLaunch').textContent=lite.launch_watch_objects??0;$('liteCleanup').textContent=lite.cleanup_runs??0;
+
+   const eg=d.edge_governor||{},gs=eg.strategies||{},sv=d.survival_guard||{};
+   const st=k=>(gs[k]||{}).state||'—';$('govLaunch').textContent=st('LAUNCH_SNIPER');$('govSniper').textContent=st('SNIPER_LONG');$('govScalp').textContent=st('SCALP_LONG');$('govPump').textContent=st('PUMP_LONG');
+   const pl=st('PERP_LONG'),ps=st('PERP_SHORT');$('govPerp').textContent=pl===ps?pl:`${pl}/${ps}`;$('recoveryState').textContent=sv.blocked?'BLOCKED':'ACTIVE';$('recoveryState').className=sv.blocked?'r':'g';
+   const states=Object.values(gs).map(x=>x.state);$('edgeBadge').textContent=states.includes('PAUSED')?'PROTECTING':states.includes('PROBATION')?'LEARNING':'EDGE OK';$('edgeBadge').className='badge '+(states.includes('PAUSED')?'warn':'ok');
+
+   const pc=(d.realtime_pulse||{}).profit_cycle||{};
+   const pnet=Number(pc.paper_net_after_stream||0);
+   const pobj=Number(pc.objective_usd||100);
+   $('profitTarget').textContent='$'+pobj.toFixed(2);
+   $('profitRealized').textContent=(Number(pc.paper_realized_pnl||0)>=0?'+$':'-$')+Math.abs(Number(pc.paper_realized_pnl||0)).toFixed(2);
+   $('profitStream').textContent='$'+Number(pc.estimated_stream_cost_usd||0).toFixed(2);
+   $('profitNet').textContent=(pnet>=0?'+$':'-$')+Math.abs(pnet).toFixed(2);
+   $('profitTrades').textContent=pc.closed_trades??0;
+   $('profitProgress').textContent=Number(pc.objective_progress_pct||0).toFixed(1)+'%';
+   $('profitBar').style.width=Math.min(100,Number(pc.objective_progress_pct||0))+'%';
+   $('profitBadge').textContent=pnet>0?'POSITIVE':'TESTING';
+   $('profitBadge').className='badge '+(pnet>0?'ok':'warn');
+   const mp=pc.micro_profit||{};
+   $('microScalpTp').textContent=Number(mp.scalp_tp_pct||1.25).toFixed(2)+'%';
+   $('microPumpTp').textContent=Number(mp.pump_tp_pct||2).toFixed(2)+'%';
+   $('microSniperTp').textContent=Number(mp.sniper_tp_pct||1).toFixed(2)+'%';
+   $('microLaunchTp').textContent=Number(mp.launch_tp_pct||3).toFixed(2)+'%';
+   $('profitText').textContent=(pc.closed_trades||0)>0
+     ? `Micro Profit Cycle net after estimated stream cost: ${pnet.toFixed(2)} USD`
+     : `Micro Profit Cycle آماده است؛ هدف سود کوچک، خروج سریع و بازیافت سرمایه است.`;
+
+   const co=(d.realtime_pulse||{}).cost_optimizer||{};
+   const coState=co.state||'—';
+   $('costBadge').textContent=coState;
+   $('costBadge').className='badge '+(String(coState).startsWith('PAUSED')?'warn':'ok');
+   $('costSubs').textContent=`${co.active_paid_subscriptions??0}/${co.active_cap??0}`;
+   $('costEvents').textContent=`${co.events_this_hour??0}/${co.events_per_hour_limit??0}`;
+   $('costPct').textContent=`${Number(co.hour_budget_pct||0).toFixed(1)}%`;
+   $('costSol').textContent=`${Number(co.estimated_session_spend_sol||0).toFixed(5)} SOL`;
+   $('costWallet').textContent=co.wallet_balance_sol==null?'NOT SET':`${Number(co.wallet_balance_sol).toFixed(5)} SOL`;
+   $('costFloor').textContent=`${Number(co.wallet_floor_sol||0.025).toFixed(3)} SOL`;
+   $('costTtl').textContent=`${Number(co.token_ttl_sec||0).toFixed(0)}s`;
+   $('costPruned').textContent=co.pruned_subscriptions??0;
+   $('costBar').style.width=Math.min(100,Number(co.hour_budget_pct||0))+'%';
+   $('costText').textContent=co.block_reason==='manual_off'
+     ? `Paid Stream به‌صورت دستی OFF است • NewToken/Migration رایگان همچنان فعال می‌ماند.`
+     : co.block_reason
+     ? `Paid stream محدود شده: ${co.block_reason}. NewToken رایگان همچنان فعال می‌ماند.`
+     : `Cost Optimizer فعال است • ${co.events_remaining_this_hour??0} paid events تا سقف ساعتی باقی مانده.`;
+   renderRealtime(d,h);renderDecision(d);renderPositions(d.positions||[]);renderSignals(d.candidates||[]);renderTrades(d.trades||[])
+ }catch(e){
+   $('connState').textContent='ERROR';$('connState').className='r';
+   $('botState').textContent='DISCONNECTED';
+   $('cloudHealth').textContent=connectionErrorText(e);
+   $('connBox').classList.remove('hidden')
+ }
+}
+setInterval(load,5000);
+load();
+</script>
+</body>
+</html>
